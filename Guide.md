@@ -14,16 +14,18 @@ A deep understanding of how containers work or how podman works is *not* require
 
 ## Ollama
 
-The ollama container image contains the ollama CLI which can be used to download models and run them.
+The ollama container image contains the ollama CLI which can be used to download and run models.
 
-The first thing that we'll need to do is create a volume to store our downloaded models. We can do this by running the following command:
+The first thing that we'll need to do is create a volume to store our downloaded models.
 
 ```bash
 podman volume create ollama
 ```
 
+After create the volume, the container can be created and started.
+
 ```bash
-podman run -d --rm -v ollama:/root/.ollama --name ollama ollama/ollama
+podman run -d -v ollama:/root/.ollama --name ollama docker.io/ollama/ollama
 ```
 
 Now that the container is running, let's verify that we can execute the ollama CLI by displaying the version number.
@@ -68,7 +70,8 @@ The ollama CLI lacks a fair bit of quality of life features which is were Open W
 First we'll need to stop and remove our current ollama container so that we can make some modifications.
 
 ```bash
-podman stop ollama
+podman container stop ollama
+podman container rm ollama
 ```
 
 Next we'll need to create a network so that the Open WebUI container and the new ollama container can communicate with each other.
@@ -80,7 +83,7 @@ podman network create ollama
 We'll use a slightly different command to re-create the ollama container.
 
 ```bash
-podman run -d --network ollama -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+podman run -d --network ollama -v ollama:/root/.ollama -p 11434:11434 --name ollama docker.io/ollama/ollama
 ```
 
 Before we can start the Open WebUI container, we need to create another volume so that settings and other user data will persist when the container is stopped.
