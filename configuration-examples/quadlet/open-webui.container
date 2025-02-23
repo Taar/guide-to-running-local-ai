@@ -1,0 +1,19 @@
+[Unit]
+Description=Open Web UI Container
+After=local-fs.target network-online.target
+
+[Container]
+ContainerName=open-webui
+Image=ghcr.io/open-webui/open-webui:v0.5.16
+PublishPort=0.0.0.0:3000:8080
+Network=ollama.network
+Volume=open-webui.volume:/app/backend/data
+Environment=OLLAMA_BASE_URL=http://ollama:11434
+
+[Service]
+TimeoutStartSec=180
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target

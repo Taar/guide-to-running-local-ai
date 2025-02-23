@@ -1,0 +1,20 @@
+[Unit]
+Description=OLLaMa Server Container
+After=local-fs.target network-online.target
+
+[Container]
+ContainerName=ollama
+Image=docker.io/ollama/ollama:0.5.12
+Network=ollama.network
+Volume=ollama.volume:/root/.ollama
+# If wanting to use a Nvidia GPU
+# PodmanArgs=--device nvidia.com/gpu=all --hooks-dir=/usr/share/containers/oci/hooks.d
+SecurityLabelDisable=true
+
+[Service]
+TimeoutStartSec=180
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target

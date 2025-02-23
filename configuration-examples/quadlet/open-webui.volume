@@ -1,0 +1,6 @@
+[Unit]
+Description=Open WebUI Volume
+After=local-fs.target
+
+[Volume]
+VolumeName=open-webui

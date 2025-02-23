@@ -1,0 +1,6 @@
+[Unit]
+Description=OLLaMa Network
+After=local-fs.target network-online.target
+
+[Network]
+NetworkName=ollama

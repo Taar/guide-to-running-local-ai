@@ -1,0 +1,6 @@
+[Unit]
+Description=OLLaMa Volume
+After=local-fs.target
+
+[Volume]
+VolumeName=ollama
